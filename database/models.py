@@ -1,5 +1,6 @@
-from pydantic import BaseModel
+
 from .base import connection, cursor
+from .base import BaseModel
 
 def create_tables():
     cursor.execute("CREATE TABLE IF NOT EXISTS `users` (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, user_id INTEGER UNIQUE)")
@@ -10,25 +11,20 @@ class User(BaseModel):
     id : int = 0
     user_id : int
 
-    def exists(user_id : int) -> bool:
+    def __str__(self) -> str:
+        return str(self.__dict__)
+
+    def create(self):
+        cursor.execute("INSERT INTO `users` (`user_id`) VALUES(?)", (self.user_id,))
+        connection.commit()
+
+        self.id = cursor.lastrowid
+
+    def get(user_id : int):
         cursor.execute("SELECT * FROM `users` WHERE `user_id` = ?", (user_id,))
         row = cursor.fetchone()
 
-        return row != None
+        if row == None:
+            return None
 
-    def create(user_id : int):
-        if not User.exists(user_id = user_id):
-            cursor.execute("INSERT INTO `users` (`user_id`) VALUES(?)", (user_id,))
-            connection.commit()
-
-            id = cursor.lastrowid
-            return User(id = id, user_id = user_id)
-        else:
-            return User.get(user_id = user_id)
-
-    def get(user_id : int):
-        if User.exists(user_id = user_id):
-            cursor.execute("SELECT * FROM `users` WHERE `user_id` = ?", (user_id,))
-            row = cursor.fetchone()
-
-            return User.parse_obj(row)
+        return User.parse_obj(row)
