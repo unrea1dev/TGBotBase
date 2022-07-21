@@ -1,4 +1,3 @@
-
 from .base import connection, cursor
 from .base import BaseModel
 

@@ -3,7 +3,6 @@ from pydantic import BaseModel as PydancitBaseModel
 
 from core import config
 
-
 def dict_factory(cursor, row):
     d = {}
     for idx, col in enumerate(cursor.description):
@@ -17,6 +16,9 @@ cursor = connection.cursor()
 class BaseModel(PydancitBaseModel):
     id : int
     
+    def commit_changes(self):
+        connection.commit()
+
     def create(self):
         raise NotImplementedError()
 
