@@ -10,6 +10,7 @@ def dict_factory(cursor, row):
     return d
 
 connection = sqlite3.connect(config.database.path, check_same_thread = False)
+connection.execute("PRAGMA foreign_keys = ON")
 connection.row_factory = dict_factory
 cursor = connection.cursor()
 
