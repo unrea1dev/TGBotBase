@@ -15,7 +15,7 @@ connection.row_factory = dict_factory
 cursor = connection.cursor()
 
 class BaseModel(PydancitBaseModel):
-    id : int
+    id : int = 0
     
     def commit_changes(self):
         connection.commit()
