@@ -1,61 +1,59 @@
-import json, os
-from datetime import datetime
+from typing_extensions import Self
+from pydantic import BaseModel
+import json
+from collections.abc import Mapping
 
-class AbstractConfig:
-    NEW_LAYER_SYMBOL = '/'
+class Attributes:
+    __path : str = None
+    __structure : dict = {}
 
-    def __init__(self, path : str) -> None:
-        self.path = path
+class ConfigStructure(BaseModel):
+    def initialize_config(self, path : str = None) -> Self: 
+        if not path:
+            return
 
-        if not self.config_exists():
-            self.config = {'created_in' : str(datetime.now())}
-            self.save_config()
+        Attributes.__path = path
+        Attributes.__structure = self.dict()
 
+        if not self.__config_exists():
+            config = self.__overwrite(data = Attributes.__structure)
         else:
-            self.config = self.load_config()
+            config = self.__read_config()
+            config = self.__deep_update(source = Attributes.__structure, overrides = config)
 
-    def config_field(self, key : str, layer : str = None, default = None) -> object:
-        if layer:
-            layers = list(filter(None, layer.split(self.NEW_LAYER_SYMBOL)))
+            self.overwrite(data = config)
 
-            config_copy = self.config
+        return self.__class__(**config)
+    
+    def overwrite(self) -> None:
+        with open(Attributes.__path, 'w', encoding = 'utf-8') as configfile:
+            json.dump(self.dict(), configfile, ensure_ascii = False, indent = 4)
 
-            for i in layers:
-                if i not in config_copy:
-                    config_copy[i] = {}
-                config_copy = config_copy[i]
+    def __overwrite(self, data : dict) -> None:
+        with open(Attributes.__path, 'w', encoding = 'utf-8') as configfile:
+            json.dump(data, configfile, ensure_ascii = False, indent = 4)
 
-            if not config_copy.get(key):
-                config_copy[key] = default
-                self.save_config()
+        return data
 
-                return default
+    def __read_config(self) -> dict:
+            with open(Attributes.__path, 'r', encoding = 'utf-8') as configfile:
+                loads = json.load(configfile)
+                return loads
+
+    def __deep_update(self, source : dict, overrides : dict):
+        for key, value in overrides.items():
+            if isinstance(value, Mapping) and value:
+                returned = self.__deep_update(source.get(key, {}), value)
+                source[key] = returned
             else:
-                return config_copy.get(key)
+                source[key] = overrides[key]
+        return source
 
-        else:
-            if not self.config.get(key):
-                self.config[key] = default
-                self.save_config()
-
-                return default
-            else:
-                return self.config.get(key)
-                
-    def save_config(self) -> None:
-        with open(self.path, 'w', encoding = 'utf-8') as file:
-            json.dump(self.config, file, ensure_ascii = False, indent = 4)
-
-    def load_config(self) -> dict:
-        with open(self.path, 'r', encoding = 'utf-8') as file:
-            return json.load(file)
-
-    def config_exists(self):
-        if not os.path.exists(path = self.path):
+    def __config_exists(self, ) -> bool:
+        try:
+            self.__read_config()
+            return True
+        except FileNotFoundError:
             return False
-
-        with open(self.path, 'r', encoding = 'utf-8') as file:
-            if file.read() == '':
-                return False
-
-        return True
+        except json.JSONDecodeError:
+            raise Exception(f'{Attributes.__path} decode error')

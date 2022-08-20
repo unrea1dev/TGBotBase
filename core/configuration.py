@@ -1,16 +1,11 @@
-from utils.config_builder import AbstractConfig
+from utils.config_builder import ConfigStructure
 
-class Config(AbstractConfig):
-    def __init__(self) -> None:
-        super().__init__(path = 'configuration.json')
+class Bot(ConfigStructure):
+    token : str = 'Bot token here'
 
-        self.bot = self.Bot(config = self)
-        self.database = self.Database(config = self)
+class Database(ConfigStructure):
+    database : str = 'database.db'
 
-    class Bot:
-        def __init__(self, config : AbstractConfig) -> None:
-            self.token = config.config_field(key = 'token', layer = 'bot', default = 'Bot token')
-
-    class Database:
-        def __init__(self, config : AbstractConfig) -> None:
-            self.path = config.config_field(key = 'path', layer = 'database', default = 'database.db')
+class Config(ConfigStructure):
+    bot : Bot = Bot()
+    database : Database = Database()

@@ -1,2 +1,4 @@
 aiogram
+peewee
 pydantic
+typing_extensions
