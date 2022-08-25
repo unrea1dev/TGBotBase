@@ -1,16 +1,15 @@
-import logging, sys
-
-logging.basicConfig(
-    level=logging.INFO,
-    format='[%(asctime)s] [%(filename)s %(levelname)s] %(message)s', datefmt='%y-%m-%d %H:%M:%S',
-    handlers=[
-        logging.FileHandler("log.log"),
-        logging.StreamHandler(sys.stdout)
-    ]
-)
-
 from aiogram import executor
-from bot import dispatcher
+from bot import dispatcher, config
+import handlers, database
+
+from utils import logging
+
+async def on_startup(_) -> None:
+    await database.create_connection(database = config.database.database)
+
+async def on_shutdown(_) -> None:
+    await database.close_connection()
 
 if __name__ == '__main__':
-    executor.start_polling(dispatcher = dispatcher, skip_updates = True)
+    logging.create_logging(path = config.logs.path)
+    executor.start_polling(dispatcher = dispatcher, skip_updates = True, on_startup = on_startup, on_shutdown = on_shutdown)

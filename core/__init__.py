@@ -1,4 +1,4 @@
-from . import configuration	
+from . import configuration
 
 structure = configuration.Config()
-config = structure.initialize_config(path = 'configuration.json')
+config = structure.create_config(name = 'configuration')

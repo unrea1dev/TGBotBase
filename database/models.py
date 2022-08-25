@@ -1,11 +1,12 @@
-from .base import BaseModel
-from peewee import IntegerField
+from tortoise.models import Model
+from tortoise import fields
 
-class User(BaseModel):
-    user_id = IntegerField(unique = True)
+class User(Model):
+    id = fields.IntField(pk = True)
+    user_id = fields.IntField(unique = True)
 
     class Meta:
-        db_table = 'users'
+        table = 'users'
 
-def initializator():
-    User.create_table()
+    def __str__(self) -> str:
+        return str(self.__dict__)

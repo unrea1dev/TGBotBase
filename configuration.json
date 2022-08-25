@@ -3,6 +3,9 @@
         "token": "Bot token here"
     },
     "database": {
-        "database": "database.db"
+        "database": "sqlite://database.db"
+    },
+    "logs": {
+        "path": "log.log"
     }
 }

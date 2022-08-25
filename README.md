@@ -1,3 +1,3 @@
 # TGBotBase
 
-Простой шаблон для начала разработки телеграмм-ботов
+Simple pattern for telegram bots based on aiogram
