@@ -1,5 +1,5 @@
 from aiogram import executor
-from bot import dispatcher, config
+from loader import dispatcher, config
 import handlers, database
 
 from utils import logging

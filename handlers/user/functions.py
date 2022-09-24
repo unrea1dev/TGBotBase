@@ -1,5 +1,5 @@
 from aiogram import types 
-from bot import bot, dispatcher
+from loader import bot, dispatcher
 
 from database.models import User
 
