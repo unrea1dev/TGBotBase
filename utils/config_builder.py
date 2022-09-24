@@ -29,6 +29,7 @@ class ConfigStructure(BaseModel):
 
         if not self.__is_config_exists():
             config = self.__overwrite(data = Attributes.__structure)
+            self.__structure_updated_abort()
         else:
             readed_config = self.__read_config()
             structure_updated = self.__is_structure_updated(readed_config = readed_config)
@@ -37,8 +38,7 @@ class ConfigStructure(BaseModel):
             self.__overwrite(data = config)
 
             if structure_updated and skip_updates == False:
-                logging.warn('Configuration structure updated, abort')
-                os._exit(0)
+                self.__structure_updated_abort()
 
         return self.__class__(**config)
     
@@ -84,6 +84,10 @@ class ConfigStructure(BaseModel):
         deepDiff = DeepDiff(Attributes.__structure, readed_config)
         return 'dictionary_item_removed' in deepDiff
 
+    def __structure_updated_abort(self) -> None:
+            logging.warn('{} structure updated, abort'.format(Attributes.__path))
+            os._exit(0)
+
     def __is_config_exists(self) -> bool:
         try:
             self.__read_config()
@@ -91,8 +95,8 @@ class ConfigStructure(BaseModel):
         except FileNotFoundError:
             return False
         except json.JSONDecodeError:
-            raise Exception(f'{Attributes.__path} decode error')
+            raise Exception('{} decode error'.format(Attributes.__path))
         except yaml.error.YAMLError:
-            raise Exception(f'{Attributes.__path} decode error')
+            raise Exception('{} decode error'.format(Attributes.__path))
         except toml.TomlDecodeError:
-            raise Exception(f'{Attributes.__path} decode error')
+            raise Exception('{} decode error'.format(Attributes.__path))

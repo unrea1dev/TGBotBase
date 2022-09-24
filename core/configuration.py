@@ -4,7 +4,7 @@ class Bot(ConfigStructure):
     token : str = 'Bot token here'
 
 class Database(ConfigStructure):
-    database : str = 'database.db'
+    database : str = 'sqlite://database.db'
 
 class Logs(ConfigStructure):
     path : str = 'log.log'
