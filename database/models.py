@@ -9,4 +9,12 @@ class User(Model):
         table = 'users'
 
     def __str__(self) -> str:
-        return str(self.__dict__)
+        return str(
+            {
+                'id' : self.id,
+                'user_id' : self.user_id
+            }
+        )
+
+    def __repr__(self) -> str:
+        return '<User{}>'.format(self.__str__())
