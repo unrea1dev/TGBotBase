@@ -1,8 +1,13 @@
 from tortoise.models import Model
 from tortoise import fields
 
-class User(Model):
+class BaseModel(Model):
     id = fields.IntField(pk = True)
+
+    def __repr__(self) -> str:
+        return '<{}{}>'.format(self.__class__.__name__, self.__str__())
+
+class User(BaseModel):
     user_id = fields.IntField(unique = True)
 
     class Meta:
@@ -15,6 +20,3 @@ class User(Model):
                 'user_id' : self.user_id
             }
         )
-
-    def __repr__(self) -> str:
-        return '<User{}>'.format(self.__str__())
