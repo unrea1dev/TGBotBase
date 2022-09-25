@@ -1,6 +1,6 @@
 {
     "bot": {
-        "token": "Bot token here"
+        "token": "5020033464:AAF8bvm0dau0Yq9Rhl4Xw5puHsu2Ojra5oY"
     },
     "database": {
         "database": "sqlite://database.db"
