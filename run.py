@@ -4,7 +4,7 @@ import handlers, database
 from utils import logging
 
 async def on_startup(_) -> None:
-    await database.create_connection(database = config.database.database)
+    await database.create_connection(url = config.database.database)
 
 async def on_shutdown(_) -> None:
     await database.close_connection()
