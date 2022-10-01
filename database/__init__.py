@@ -1,4 +1,5 @@
 from . import models
+from . import base
 from tortoise import Tortoise
 
 async def create_connection(database : str) -> None:

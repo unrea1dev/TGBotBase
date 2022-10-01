@@ -1,11 +1,5 @@
-from tortoise.models import Model
 from tortoise import fields
-
-class BaseModel(Model):
-    id = fields.IntField(pk = True)
-
-    def __repr__(self) -> str:
-        return '<{}{}>'.format(self.__class__.__name__, self.__str__())
+from database.base import BaseModel
 
 class User(BaseModel):
     user_id = fields.IntField(unique = True)
