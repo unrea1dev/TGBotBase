@@ -6,11 +6,3 @@ class User(BaseModel):
 
     class Meta:
         table = 'users'
-
-    def __str__(self) -> str:
-        return str(
-            {
-                'id' : self.id,
-                'user_id' : self.user_id
-            }
-        )
