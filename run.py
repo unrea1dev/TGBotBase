@@ -1,6 +1,8 @@
 from loader import executor, config
 import handlers, database
 
+from misc.logging import initialize_logging
+
 async def on_startup(_) -> None:
     await database.create_connection(url = config.database.database)
 

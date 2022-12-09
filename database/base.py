@@ -1,3 +1,4 @@
+from tortoise import Tortoise
 from tortoise.models import Model
 from tortoise.fields import IntField
 
@@ -6,6 +7,7 @@ class BaseModel(Model):
 
     class Meta:
         abstract = True
+        ordering = 'created_at'
 
     def __str__(self) -> str:
         values = {}
@@ -16,3 +18,11 @@ class BaseModel(Model):
 
     def __repr__(self) -> str:
         return '<{}{}>'.format(self.__class__.__name__, self.__str__())
+
+
+async def create_connection(url : str) -> None:
+    await Tortoise.init(db_url = url, modules = {'models' : ['database.models']})
+    await Tortoise.generate_schemas()
+
+async def close_connection() -> None:
+    await Tortoise.close_connections()

@@ -1,4 +1,4 @@
-from utils import ConfigStructure
+from misc import ConfigStructure
 
 class Bot(ConfigStructure):
     token : str = 'Bot token here'
