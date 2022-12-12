@@ -1,3 +1,2 @@
-from . import configuration
-from . import base
+from . import base, configuration
 from . base import config

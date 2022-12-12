@@ -1,15 +1,15 @@
-from misc import ConfigStructure
+from misc import AbstractConfiuration
 
-class Bot(ConfigStructure):
+class Bot(AbstractConfiuration):
     token : str = 'Bot token here'
 
-class Database(ConfigStructure):
+class Database(AbstractConfiuration):
     database : str = 'sqlite://database.db'
 
-class Logs(ConfigStructure):
+class Logs(AbstractConfiuration):
     path : str = 'log.log'
 
-class Config(ConfigStructure):
+class Config(AbstractConfiuration):
     bot : Bot = Bot()
     database : Database = Database()
     logs : Logs = Logs()
