@@ -4,10 +4,10 @@ class Bot(AbstractConfiuration):
     token : str = 'Bot token here'
 
 class Database(AbstractConfiuration):
-    database : str = 'sqlite://database.db'
+    database : str = 'sqlite://runtime/database.db'
 
 class Logs(AbstractConfiuration):
-    path : str = 'log.log'
+    path : str = 'runtime/log.log'
 
 class Config(AbstractConfiuration):
     bot : Bot = Bot()

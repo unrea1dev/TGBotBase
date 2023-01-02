@@ -87,7 +87,7 @@ class AbstractConfiuration(BaseModel):
         return 'dictionary_item_removed' in deepDiff
 
     def _schema_updated_abort(self) -> None:
-            logging.warn('{} structure updated, abort'.format(Attributes._path))
+            logging.warn('{} schema updated, abort'.format(Attributes._path))
             os._exit(0)
 
     def _is_config_exists(self) -> bool:

@@ -1,0 +1,11 @@
+{
+    "bot": {
+        "token": "Bot token here"
+    },
+    "database": {
+        "database": "sqlite://runtime/database.db"
+    },
+    "logs": {
+        "path": "runtime/log.log"
+    }
+}
