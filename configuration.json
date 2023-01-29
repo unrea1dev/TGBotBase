@@ -3,9 +3,10 @@
         "token": "Bot token here"
     },
     "database": {
-        "database": "sqlite://runtime/database.db"
+        "database": "sqlite://runtime/database.db",
+        "timezone" : "UTC"
     },
-    "logs": {
+    "logging": {
         "path": "runtime/log.log"
     }
 }

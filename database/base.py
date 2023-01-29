@@ -20,8 +20,8 @@ class BaseModel(Model):
         return '<{}{}>'.format(self.__class__.__name__, self.__str__())
 
 
-async def create_connection(url : str) -> None:
-    await Tortoise.init(db_url = url, modules = {'models' : ['database.models']})
+async def create_connection(url : str, timezone : str) -> None:
+    await Tortoise.init(db_url = url, modules = {'models' : ['database.models']}, timezone = timezone)
     await Tortoise.generate_schemas()
 
 async def close_connection() -> None:

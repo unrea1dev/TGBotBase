@@ -5,11 +5,12 @@ class Bot(AbstractConfiuration):
 
 class Database(AbstractConfiuration):
     database : str = 'sqlite://runtime/database.db'
+    timezone : str = 'UTC'
 
-class Logs(AbstractConfiuration):
+class Logging(AbstractConfiuration):
     path : str = 'runtime/log.log'
 
 class Config(AbstractConfiuration):
     bot : Bot = Bot()
     database : Database = Database()
-    logs : Logs = Logs()
+    logging : Logging = Logging()
