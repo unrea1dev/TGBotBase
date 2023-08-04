@@ -1,15 +1,19 @@
+from aiogram import Dispatcher
 from loader import executor, config
 import handlers, database
 
-from misc.logging import initialize_logging
+from misc.misc import setup_misc
+from misc.logs import initialize_logging
 
-async def on_startup(_) -> None:
+async def on_startup(dispatcher : Dispatcher) -> None:
     await database.create_connection(
         url = config.database.database,
         timezone = config.database.timezone
     )
 
-async def on_shutdown(_) -> None:
+    await setup_misc(dispatcher = dispatcher)
+
+async def on_shutdown(dispatcher : Dispatcher) -> None:
     await database.close_connection()
 
 if __name__ == '__main__':
