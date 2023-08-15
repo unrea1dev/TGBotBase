@@ -1,4 +1,4 @@
-from misc import AbstractConfiuration
+from core.background import AbstractConfiuration
 
 class Bot(AbstractConfiuration):
     token : str = 'Bot token here'
@@ -10,7 +10,7 @@ class Database(AbstractConfiuration):
 class Logging(AbstractConfiuration):
     path : str = 'runtime/log.log'
 
-class Config(AbstractConfiuration):
+class Configuration(AbstractConfiuration):
     bot : Bot = Bot()
     database : Database = Database()
     logging : Logging = Logging()

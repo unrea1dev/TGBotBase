@@ -4,7 +4,7 @@ from loader import dispatcher
 from database.models import User
 
 @dispatcher.message_handler(commands = ['start'])
-async def process_send_welcome(message : types.Message) -> None:
+async def process_start_command(message : types.Message) -> None:
     user_id = message.chat.id
 
     user = await User.filter(user_id = user_id).first()

@@ -4,7 +4,7 @@
     },
     "database": {
         "database": "sqlite://runtime/database.db",
-        "timezone" : "UTC"
+        "timezone": "UTC"
     },
     "logging": {
         "path": "runtime/log.log"

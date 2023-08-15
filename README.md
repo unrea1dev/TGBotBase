@@ -5,4 +5,4 @@ Simple pattern for telegram bots based on aiogram
 - Easy config system
 - Logs
 
-https://github.com/unrea1projects/TGBotBase
+https://github.com/unrea1dev/TGBotBase

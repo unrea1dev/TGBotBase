@@ -1,7 +1,7 @@
 aiogram
 tortoise-orm
 pydantic
-typing_extensions
 deepdiff
 PyYAML
 toml
+pytz
