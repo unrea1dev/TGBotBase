@@ -1,5 +1,5 @@
 # TGBotBase
-Simple pattern for telegram bots based on aiogram
+Telegram bot pattern based aiogram + fastapi (webhooks) 
 
 - Tortoise ORM
 - Easy config system

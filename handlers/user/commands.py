@@ -10,3 +10,5 @@ async def process_start_command(message : types.Message) -> None:
     user = await User.filter(user_id = user_id).first()
     if not user:
         user = await User.create(user_id = user_id)
+
+    await message.answer(text = str(user_id))

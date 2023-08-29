@@ -1,4 +1,4 @@
-from core.runtime import Runtime
+from core.features.runtime import Runtime
 from core.configuration import Configuration
 
 runtime = Runtime()

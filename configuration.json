@@ -2,6 +2,12 @@
     "bot": {
         "token": "Bot token here"
     },
+    "api": {
+        "host": "localhost",
+        "port": 8443,
+        "bot_webhook_path": "/webhook/",
+        "bot_webhook_url": "https://localhost:8443/webhook/"
+    },
     "database": {
         "database": "sqlite://runtime/database.db",
         "timezone": "UTC"
